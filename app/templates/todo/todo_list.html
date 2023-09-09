@@ -20,6 +20,11 @@
           <div class="form-group">
             {{ form.status.label(class="form-control-label") }}
             {{ form.status(class="form-control") }}
+            <select class="form-control" name="status">
+              <option value="Offen">Offen</option>
+              <option value="In Bearbeitung">In Bearbeitung</option>
+              <option value="Erledigt">Erledigt</option>
+            </select>
           </div>
           <div class="form-group">
             {{ form.comment.label(class="form-control-label") }}
