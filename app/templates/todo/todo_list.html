@@ -35,20 +35,24 @@
     </div>
 
     <!-- Anzeige der erstellten Aufgaben -->
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <h2>Meine Aufgaben</h2>
-        <ul class="list-group">
-          {% for task in tasks %}
-            <li class="list-group-item">
-              <strong>{{ task.title }}</strong><br>
-              Fällig am: {{ task.deadline }}<br>
-              Status: {{ task.status }}<br>
-              Kommentar: {{ task.comment }}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
+   <div class="row mt-4">
+  <div class="col-md-6">
+    <h2>Meine Aufgaben</h2>
+    <ul class="list-group">
+      {% for task in tasks %}
+        <li class="list-group-item">
+          <strong>{{ task.title }}</strong><br>
+          Fällig am: {{ task.deadline }}<br>
+          Status: {{ task.status }}<br>
+          Kommentar: {{ task.comment }}<br>
+          <a href="{{ url_for('main.edit_todo_task', id=task.id) }}" class="btn btn-primary">Bearbeiten</a>
+          <form method="POST" action="{{ url_for('main.delete_todo_task', id=task.id) }}" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Löschen</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
   </div>
 {% endblock %}
