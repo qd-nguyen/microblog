@@ -11,10 +11,12 @@ from app.models import User, Post, Message, Notification
 from app.translate import translate
 from app.main import bp
 from flask import render_template, url_for
-from app import app
 from app.models import TodoTask
 from app.forms import TodoTaskForm
+from app import create_app
 
+
+app = create_app()
 
 @bp.before_app_request
 def before_request():
