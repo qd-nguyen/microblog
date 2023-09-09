@@ -257,23 +257,3 @@ def todo_list():
         return redirect(url_for('main.todo_list'))
     
     return render_template('todo/todo_list.html', tasks=tasks, form=form)
-
-@bp.route('/add_task', methods=['GET', 'POST'])
-@login_required
-def add_task():
-    form = TodoTaskForm()
-    
-    if form.validate_on_submit():
-        task = TodoTask(
-            title=form.title.data,
-            deadline=form.deadline.data,
-            status=form.status.data,
-            comment=form.comment.data,
-            user_id=current_user.id
-        )
-        db.session.add(task)
-        db.session.commit()
-        flash('Aufgabe wurde hinzugefügt', 'success')
-        return redirect(url_for('main.todo_list'))
-    
-    return render_template('todo/add_task.html', form=form)
