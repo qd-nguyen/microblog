@@ -237,23 +237,16 @@ def notifications():
         'timestamp': n.timestamp
     } for n in notifications])
     
-@bp.route('/todo', methods=['GET', 'POST'])
+@app.route('/todo', methods=['GET', 'POST'])
 @login_required
 def todo_list():
-    tasks = TodoTask.query.all()
-    form = TodoTaskForm()
-    
+    form = TaskForm()
     if form.validate_on_submit():
-        task = TodoTask(
-            title=form.title.data,
-            deadline=form.deadline.data,
-            status=form.status.data,
-            comment=form.comment.data,
-            user_id=current_user.id
-        )
+        task = Task(title=form.title.data, deadline=form.deadline.data, status=form.status.data, comment=form.comment.data, user=current_user)
         db.session.add(task)
         db.session.commit()
-        flash('Aufgabe wurde hinzugefügt', 'success')
+        flash('Aufgabe wurde hinzugefügt.', 'success')
         return redirect(url_for('main.todo_list'))
-    
+
+    tasks = Task.query.filter_by(user=current_user).all()
     return render_template('todo/todo_list.html', tasks=tasks, form=form)
