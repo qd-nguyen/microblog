@@ -12,6 +12,8 @@ from app.translate import translate
 from app.main import bp
 from flask import render_template, url_for
 from app import app
+from app.models import TodoTask
+from app.forms import TodoTaskForm
 
 
 @bp.before_app_request
@@ -233,7 +235,24 @@ def notifications():
         'timestamp': n.timestamp
     } for n in notifications])
     
-@app.route('/todo')
+@app.route('/todo', methods=['GET', 'POST'])
 def todo_list():
-    tasks = Task.query.all()
+    tasks = TodoTask.query.all()
     return render_template('todo/todo_list.html', tasks=tasks)
+
+@app.route('/add_task', methods=['GET', 'POST'])
+def add_task():
+    form = TodoTaskForm()
+    if form.validate_on_submit():
+        task = TodoTask(
+            title=form.title.data,
+            deadline=form.deadline.data,
+            status=form.status.data,
+            comment=form.comment.data,
+            user_id=current_user.id 
+        )
+        db.session.add(task)
+        db.session.commit()
+        flash('Aufgabe wurde hinzugefügt', 'success')
+        return redirect(url_for('todo_list'))
+    return render_template('todo/add_task.html', form=form)
