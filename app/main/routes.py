@@ -240,7 +240,7 @@ def notifications():
 @bp.route('/todo', methods=['GET', 'POST'])
 @login_required
 def todo_list():
-    tasks = TodoTask.query.all()
+    tasks = TodoTask.query.filter_by(user_id=current_user.id).all()
     form = TodoTaskForm()
     
     if form.validate_on_submit():
