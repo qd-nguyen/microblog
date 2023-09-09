@@ -6,9 +6,9 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'IFA$2023'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'Ifa$2023'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'mysql://testuser1:IFA$2023@localhost/todolistdb'
+        'mysql://testuser1:Ifa$2023@localhost/todolistdb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
