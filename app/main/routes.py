@@ -261,3 +261,28 @@ def todo_list():
     
     return render_template('todo/todo_list.html', tasks=tasks, form=form)
 
+@bp.route('/todo/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_todo_task(id):
+    task = TodoTask.query.get_or_404(id)
+    form = TodoTaskForm(obj=task)
+
+    if form.validate_on_submit():
+        task.title = form.title.data
+        task.deadline = form.deadline.data
+        task.status = form.status.data
+        task.comment = form.comment.data
+        db.session.commit()
+        flash('Aufgabe wurde bearbeitet', 'success')
+        return redirect(url_for('main.todo_list'))
+
+    return render_template('todo/edit_todo_task.html', form=form, task=task)
+
+@bp.route('/todo/delete/<int:id>', methods=['POST'])
+@login_required
+def delete_todo_task(id):
+    task = TodoTask.query.get_or_404(id)
+    db.session.delete(task)
+    db.session.commit()
+    flash('Aufgabe wurde gelöscht', 'success')
+    return redirect(url_for('main.todo_list'))
