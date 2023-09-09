@@ -10,6 +10,8 @@ from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, \
 from app.models import User, Post, Message, Notification
 from app.translate import translate
 from app.main import bp
+from flask import render_template, url_for
+from app import app
 
 
 @bp.before_app_request
@@ -230,3 +232,8 @@ def notifications():
         'data': n.get_data(),
         'timestamp': n.timestamp
     } for n in notifications])
+    
+@app.route('/todo')
+def todo_list():
+    tasks = Task.query.all()
+    return render_template('todo/todo_list.html', tasks=tasks)
