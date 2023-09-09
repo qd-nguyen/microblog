@@ -253,6 +253,9 @@ def todo_list():
         )
         db.session.add(task)
         db.session.commit()
+        
+        current_app.logger.info(f"Aufgabe hinzugefügt: {task.title}")
+        
         flash('Aufgabe wurde hinzugefügt', 'success')
         return redirect(url_for('main.todo_list'))
     
