@@ -291,14 +291,19 @@ class Task(db.Model):
     def get_progress(self):
         job = self.get_rq_job()
         return job.meta.get('progress', 0) if job is not None else 100
+        
 
 class TodoTask(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(128), nullable=False)
+    title = db.Column(db.String(128))
     deadline = db.Column(db.Date)
-    status = db.Column(db.String(20), default='offen')
+    status = db.Column(db.String(64), default='offen')
     comment = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __repr__(self):
-        return f'<TodoTask {self.title}>'
+    def __init__(self, title, deadline, status, comment, user_id):
+        self.title = title
+        self.deadline = deadline
+        self.status = status
+        self.comment = comment
+        self.user_id = user_id
