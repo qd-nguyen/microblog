@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Aufgabe löschen</h1>
+    
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <p>Möchten Sie diese Aufgabe wirklich löschen?</p>
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          <button type="submit" class="btn btn-danger">Löschen</button>
+          <a href="{{ url_for('main.todo_list') }}" class="btn btn-secondary">Abbrechen</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
