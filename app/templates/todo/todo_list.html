@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-Liste</title>
+</head>
+<body>
+    <h1>ToDo-Liste</h1>
+    
+    <!-- Formular zum Erstellen eines neuen Tasks -->
+    <h2>Neuen Task erstellen</h2>
+    <form action="/add_task" method="POST">
+        <label for="title">Titel:</label>
+        <input type="text" id="title" name="title" required><br>
+        
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline"><br>
+        
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="offen">Offen</option>
+            <option value="in_bearbeitung">In Bearbeitung</option>
+            <option value="abgeschlossen">Abgeschlossen</option>
+        </select><br>
+        
+        <label for="comment">Kommentar:</label><br>
+        <textarea id="comment" name="comment"></textarea><br>
+        
+        <button type="submit">Task hinzufügen</button>
+    </form>
+    
+    <!-- Aufgaben nach Status anzeigen -->
+    <h2>Aufgaben</h2>
+    
+    <h3>Offen</h3>
+    <ul>
+        <!-- Hier könntest du Aufgaben in der Kategorie "offen" anzeigen -->
+    </ul>
+    
+    <h3>In Bearbeitung</h3>
+    <ul>
+        <!-- Hier könntest du Aufgaben in der Kategorie "in_bearbeitung" anzeigen -->
+    </ul>
+    
+    <h3>Abgeschlossen</h3>
+    <ul>
+        <!-- Hier könntest du Aufgaben in der Kategorie "abgeschlossen" anzeigen -->
+    </ul>
+</body>
+</html>
