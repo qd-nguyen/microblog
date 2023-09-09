@@ -7,7 +7,7 @@
     <!-- Aufgabenformular -->
     <div class="row mt-4">
       <div class="col-md-6">
-        <form method="POST" action="{{ url_for('main.add_task') }}">
+        <form method="POST" action="{{ url_for('main.todo_list') }}">
           {{ form.hidden_tag() }}
           <div class="form-group">
             {{ form.title.label(class="form-control-label") }}
