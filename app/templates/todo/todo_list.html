@@ -1,49 +1,57 @@
-{% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'base.html' %}
 
-{% block app_content %}
-    <h1>ToDo-Liste</h1>
-    <!-- Formular zum Hinzufügen von Aufgaben -->
-    <form method="POST" action="{{ url_for('add_task') }}">
-        {{ wtf.quick_form(form) }}
-        <button type="submit">Aufgabe hinzufügen</button>
-    </form>
+{% block content %}
+  <div class="container">
+    <h1>ToDo List</h1>
+    
+    <!-- Navigationsleiste -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">Home</a>
+      <a class="navbar-brand" href="{{ url_for('main.todo_list') }}">ToDo List</a>
+      <!-- Fügen Sie hier weitere Navigationslinks hinzu, wenn nötig -->
+    </nav>
 
-    <!-- Aufgabenliste nach Status sortiert -->
-    <h2>Offen</h2>
-    <ul>
-        {% for task in tasks if task.status == 'offen' %}
-            <li>
-                <h3>{{ task.title }}</h3>
-                <p>Status: {{ task.status }}</p>
-                <p>Deadline: {{ task.deadline }}</p>
-                <p>Kommentar: {{ task.comment }}</p>
+    <!-- Aufgabenformular -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <form method="POST" action="{{ url_for('main.add_task') }}">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.title.label(class="form-control-label") }}
+            {{ form.title(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.deadline.label(class="form-control-label") }}
+            {{ form.deadline(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.status.label(class="form-control-label") }}
+            {{ form.status(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.comment.label(class="form-control-label") }}
+            {{ form.comment(class="form-control") }}
+          </div>
+          <button type="submit" class="btn btn-primary">Aufgabe hinzufügen</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Anzeige der erstellten Aufgaben -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h2>Meine Aufgaben</h2>
+        <ul class="list-group">
+          {% for task in tasks %}
+            <li class="list-group-item">
+              <strong>{{ task.title }}</strong><br>
+              Fällig am: {{ task.deadline }}<br>
+              Status: {{ task.status }}<br>
+              Kommentar: {{ task.comment }}
             </li>
-        {% endfor %}
-    </ul>
-
-    <h2>In Bearbeitung</h2>
-    <ul>
-        {% for task in tasks if task.status == 'in Bearbeitung' %}
-            <li>
-                <h3>{{ task.title }}</h3>
-                <p>Status: {{ task.status }}</p>
-                <p>Deadline: {{ task.deadline }}</p>
-                <p>Kommentar: {{ task.comment }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <h2>Abgeschlossen</h2>
-    <ul>
-        {% for task in tasks if task.status == 'abgeschlossen' %}
-            <li>
-                <h3>{{ task.title }}</h3>
-                <p>Status: {{ task.status }}</p>
-                <p>Deadline: {{ task.deadline }}</p>
-                <p>Kommentar: {{ task.comment }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 {% endblock %}
