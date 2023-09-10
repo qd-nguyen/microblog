@@ -14,7 +14,6 @@ from flask import render_template, url_for
 from app.models import TodoTask
 from app.forms import TodoTaskForm
 from app import create_app
-from .api_routes import *
 
 
 app = create_app()
